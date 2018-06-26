@@ -1,0 +1,13 @@
+Django==2.0.6
+django-cors-headers==2.2.0
+djangorestframework==3.8.2
+django-filter==1.1.0
+psycopg2-binary==2.7.5
+gunicorn==19.8.1
+Pillow==5.1.0
+celery==4.2.0
+https://github.com/formatcom/django-celery-beat/zipball/v1.1.1#egg=django-celery-beat
+https://github.com/formatcom/django-celery-results/zipball/v1.1.0#egg=django-celery-results
+redis==2.10.6
+django-sendgrid-v5==0.6.88
+django-imagekit==4.0.2

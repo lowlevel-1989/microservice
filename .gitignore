@@ -1,0 +1,10 @@
+db.sqlite3
+*.py[cod]
+env
+.env
+app/media
+app/static
+app/client
+nginx/certs
+db-data
+redis-data

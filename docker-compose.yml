@@ -1,0 +1,58 @@
+version: "2"
+services:
+  postgres:
+    extends:
+      file: base.yml
+      service: postgres
+
+  redis:
+    extends:
+      file: base.yml
+      service: redis
+
+  app:
+    extends:
+      file: base.yml
+      service: app
+    environment:
+      - DJANGO_SETTINGS_MODULE=service.settings.dev
+    command: python manage.py runserver_plus 0.0.0.0:8000
+    build:
+      args:
+        - DJANGO_ENV=dev
+    links:
+      - redis
+      - postgres
+    ports:
+      - "8000:8000"
+
+  worker:
+    extends:
+      file: base.yml
+      service: worker
+    environment:
+      - DJANGO_SETTINGS_MODULE=service.settings.dev
+    build:
+      args:
+        - DJANGO_ENV=dev
+    links:
+      - redis
+      - postgres
+    depends_on:
+      - app
+
+  beat:
+    extends:
+      file: base.yml
+      service: beat
+    environment:
+      - DJANGO_SETTINGS_MODULE=service.settings.dev
+    build:
+      args:
+        - DJANGO_ENV=dev
+    links:
+      - redis
+      - postgres
+    depends_on:
+      - worker
+

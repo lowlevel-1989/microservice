@@ -1,0 +1,64 @@
+version: "2"
+services:
+  nginx:
+    build: ./nginx
+    volumes:
+      - ./app:/app
+    links:
+      - app
+    ports:
+      - "80:80"
+
+  postgres:
+    extends:
+      file: base.yml
+      service: postgres
+    volumes:
+      - ./db-data:/var/lib/postgresql/data/
+
+  redis:
+    extends:
+      file: base.yml
+      service: redis
+    volumes:
+      - ./redis-data:/data
+
+  app:
+    extends:
+      file: base.yml
+      service: app
+    environment:
+      - DJANGO_SETTINGS_MODULE=service.settings.prod
+    build:
+      args:
+        - DJANGO_ENV=prod
+    links:
+      - redis
+      - postgres
+
+  worker:
+    extends:
+      file: base.yml
+      service: worker
+    environment:
+      - DJANGO_SETTINGS_MODULE=service.settings.prod
+    build:
+      args:
+        - DJANGO_ENV=prod
+    links:
+      - redis
+      - postgres
+    depends_on:
+      - app
+
+  beat:
+    extends:
+      file: base.yml
+      service: beat
+    environment:
+      - DJANGO_SETTINGS_MODULE=service.settings.prod
+    build:
+      args:
+        - DJANGO_ENV=prod
+    depends_on:
+      - worker

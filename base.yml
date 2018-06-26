@@ -1,0 +1,35 @@
+version: "2"
+services:
+  postgres:
+    image: postgres:10.4
+    env_file: .env
+
+  redis:
+    image: redis:4.0
+
+  app:
+    image: service_app
+    build: ./app
+    volumes:
+      - ./app:/app
+    env_file: .env
+    restart: on-failure
+    command: sh ./scripts/app.sh
+
+  worker:
+    image: service_app
+    build: ./app
+    volumes:
+      - ./app:/app
+    env_file: .env
+    restart: on-failure
+    command: sh ./scripts/worker.sh
+
+  beat:
+    image: service_app
+    build: ./app
+    volumes:
+      - ./app:/app
+    env_file: .env
+    restart: on-failure
+    command: sh ./scripts/beat.sh
