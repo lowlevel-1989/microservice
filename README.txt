@@ -13,24 +13,17 @@
 	POSTGRES_DB=#NOMBRE QUE SE QUIERE DAR A LA BASE DE DATOS
 	POSTGRES_USER=#USUARIO
 	POSTGRES_PASSWORD=#PASSWORD
-	BIGTINCAN_API_LIMIT=#ITEM POR PAGINAS
 
-	# CREAR IMAGENES PARA NAUTY360
+	# CREAR IMAGENES
 	docker-compose -f prod.yml build
 
-# INICIAR SERVIDOR DE NAUTY360
+# INICIAR SERVIDOR
 
 docker-compose -f prod.yml up -d
 
 # CREAR EL MODELO DE DATOS EN LA BASE DE DATOS
 
-docker-compose -f prod.yml exec app python manage.py makemigrations
 docker-compose -f prod.yml exec app python manage.py migrate
-
-# REINICIAR LOS SERVICIOS PARA QUE CARGUE CORRECTAMENTE CELERY
-
-docker-compose -f prod.yml down
-docker-compose -f prod.yml up -d
 
 # COMPROBAR EL ESTADO DEL BACKEND
 
