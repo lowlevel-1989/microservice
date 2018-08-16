@@ -44,6 +44,10 @@ LOGGING = {
         'django': {
             'level': 'DEBUG',
             'handlers': ['console'],
-            },
         },
-    }
+        'werkzeug': {
+            'level': 'DEBUG',
+            'handlers': ['console'],
+        },
+    },
+}

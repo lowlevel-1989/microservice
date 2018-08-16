@@ -48,7 +48,7 @@ INSTALLED_APPS = [
 ] + INSTALLED_APPS
 
 INSTALLED_APPS = [
-    'service.apps.core',
+    'service.apps.example',
 ] + INSTALLED_APPS
 
 MIDDLEWARE = [

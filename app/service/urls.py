@@ -7,7 +7,6 @@ from .defaultRouterWithSimpleViews import DefaultRouterWithSimpleViews
 
 router = DefaultRouterWithSimpleViews()
 
-
 urlpatterns = [
     url(r'^$', RedirectView.as_view(url='api')),
     url(r'^admin/', admin.site.urls),
