@@ -32,3 +32,6 @@ docker-compose -f prod.yml ps
 # CREAR UN USUARIO ADMINISTRADOR EN NUESTRO BACKEND
 
 docker-compose -f prod.yml exec app python manage.py createsuperuser
+
+
+Copyright 2018 Vinicio Valbuena
